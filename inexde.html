@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المرشد السياحي</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        header {
+            background-color: #D46F2A;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .container {
+            padding: 20px;
+        }
+        .search-bar {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+        .search-bar input {
+            padding: 10px;
+            font-size: 1.1em;
+            width: 60%;
+        }
+        .filters {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .filters select {
+            padding: 10px;
+            font-size: 1.1em;
+            margin-right: 10px;
+        }
+        .cities {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .city-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            text-align: center;
+        }
+        .city-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .city-card h3 {
+            margin: 10px;
+            font-size: 1.5em;
+        }
+        .city-card p {
+            margin: 10px;
+        }
+        .event {
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #f8f8f8;
+            border-radius: 5px;
+        }
+        footer {
+            background-color: #D46F2A;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+        footer p {
+            margin: 0;
+        }
+        #map {
+            height: 400px;
+            width: 100%;
+            margin-top: 20px;
+        }
+        #weather {
+            margin: 20px 0;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>مرشد سياحي</h1>
+    <p>اكتشف الأماكن السياحية في السعودية</p>
+</header>
+
+<div class="container">
+    <div class="search-bar">
+        <input type="text" id="search" placeholder="ابحث عن مدينة أو معلم سياحي..." oninput="searchCities()">
+    </div>
+
+    <div class="filters">
+        <select id="typeFilter">
+            <option value="all">جميع الأنواع</option>
+            <option value="historical">تاريخي</option>
+            <option value="natural">طبيعي</option>
+            <option value="entertainment">ترفيهي</option>
+        </select>
+
+        <select id="cityFilter">
+            <option value="all">جميع المدن</option>
+            <option value="Riyadh">الرياض</option>
+            <option value="Jeddah">جدة</option>
+            <option value="Abha">أبها</option>
+            <option value="Neom">نيوم</option>
+            <option value="AlUla">العلا</option>
+        </select>
+    </div>
+
+    <h2>أشهر المدن السياحية في السعودية</h2>
+    <div class="cities">
+        <div class="city-card" data-type="historical">
+            <img src="https://example.com/abha.jpg" alt="مدينة أبها">
+            <h3>أبها</h3>
+            <p>مدينة جميلة في جبال السروات، مع مناظر خلابة وطقس معتدل.</p>
+        </div>
+        <div class="city-card" data-type="entertainment">
+            <img src="https://example.com/riyadh.jpg" alt="مدينة الرياض">
+            <h3>الرياض</h3>
+            <p>عاصمة المملكة، مليئة بالفعاليات والمراكز التجارية.</p>
+        </div>
+        <div class="city-card" data-type="natural">
+            <img src="https://example.com/jeddah.jpg" alt="مدينة جدة">
+            <h3>جدة</h3>
+            <p>مدينة ساحلية مفعمة بالحياة، مع مزيج من الثقافة والتاريخ.</p>
+        </div>
+        <div class="city-card" data-type="historical">
+            <img src="https://example.com/alula.jpg" alt="مدينة العلا">
+            <h3>العلا</h3>
+            <p>مدينة تاريخية مليئة بالآثار والمواقع الثقافية القديمة.</p>
+        </div>
+        <div class="city-card" data-type="natural">
+            <img src="https://example.com/neom.jpg" alt="مدينة نيوم">
+            <h3>نيوم</h3>
+            <p>مدينة المستقبل، تطور تكنولوجي وبيئة طبيعية مدهشة.</p>
+        </div>
+    </div>
+
+    <h2>الفعاليات المقامة حالياً</h2>
+    <div class="events">
+        <div class="event">
+            <h3>موسم الرياض 2025</h3>
+            <p>أكبر حدث في الرياض مع العديد من الأنشطة والعروض.</p>
+        </div>
+        <div class="event">
+            <h3>موسم جدة 2025</h3>
+            <p>مهرجان مميز مع الفعاليات الثقافية والفنية في جدة.</p>
+        </div>
+        <div class="event">
+            <h3>مهرجان العلا الثقافي</h3>
+            <p>فعاليات ثقافية وفنية في العلا، تتميز بالتراث والفنون الحية.</p>
+        </div>
+        <div class="event">
+            <h3>المنتدى السعودي للتكنولوجيا والابتكار</h3>
+            <p>أحدث الفعاليات التقنية في الرياض التي تجمع بين الخبراء ورواد الأعمال.</p>
+        </div>
+    </div>
+
+    <div id="weather"></div>
+    <h2>خريطة تفاعلية</h2>
+    <div id="map"></div>
+</div>
+
+<footer>
+    <p>&copy; 2025 المرشد السياحي | جميع الحقوق محفوظة</p>
+</footer>
+
+<script>
+    // وظيفة البحث الذكي
+    function searchCities() {
+        const input = document.getElementById("search").value.toLowerCase();
+        const cityCards = document.querySelectorAll(".city-card");
+        
+        cityCards.forEach(card => {
+            const cityName = card.querySelector("h3").textContent.toLowerCase();
+            if (cityName.includes(input)) {
+                card.style.display = "block";
+            } else {
+                card.style.display = "none";
+            }
+        });
+    }
+
+    // وظيفة الفلاتر
+    document.getElementById('typeFilter').addEventListener('change', filterCities);
+    document.getElementById('cityFilter').addEventListener('change', filterCities);
+
+    function filterCities() {
+        const typeFilter = document.getElementById('typeFilter').value;
+        const cityFilter = document.getElementById('cityFilter').value;
+        const cityCards = document.querySelectorAll(".city-card");
+
+        cityCards.forEach(card => {
+            const type = card.getAttribute('data-type');
+            const cityName = card.querySelector("h3").textContent;
+
+            if ((typeFilter === 'all' || type === typeFilter) && 
+                (cityFilter === 'all' || cityName.includes(cityFilter))) {
+                card.style.display = "block";
+            } else {
+                card.style.display = "none";
+            }
+        });
+    }
+
+    // وظيفة الطقس
+    fetch('https://api.openweathermap.org/data/2.5/weather?q=Riyadh&appid=YOUR_API_KEY')
+        .then(response => response.json())
+        .then(data => {
+            let weather = `الطقس في الرياض: ${data.weather[0].description}, درجة الحرارة: ${(data.main.temp - 273.15).toFixed(2)}°C`;
+            document.getElementById("weather").innerText = weather;
+        });
+
+    // خريطة تفاعلية
+    function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 5,
+            center: {lat: 24.7136, lng: 46.6753}  // الرياض
+        });
+
+        var marker = new google.maps.Marker({
+            position: {lat: 24.7136, lng: 46.6753},
+            map: map,            title: 'الرياض'
+        });
+
+        var marker2 = new google.maps.Marker({
+            position: {lat: 21.2854, lng: 39.2376}, // جدة
+            map: map,
+            title: 'جدة'
+        });
+
+        var marker3 = new google.maps.Marker({
+            position: {lat: 18.2207, lng: 42.5053}, // أبها
+            map: map,
+            title: 'أبها'
+        });
+
+        var marker4 = new google.maps.Marker({
+            position: {lat: 26.8142, lng: 40.5091}, // العلا
+            map: map,
+            title: 'العلا'
+        });
+
+        var marker5 = new google.maps.Marker({
+            position: {lat: 26.8000, lng: 37.5000}, // نيوم
+            map: map,
+            title: 'نيوم'
+        });
+    }
+
+    // تحميل الخريطة من API
+    function loadMapScript() {
+        var script = document.createElement('script');
+        script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap`;
+        script.async = true;
+        document.head.appendChild(script);
+    }
+
+    // تحميل الخريطة عند تحميل الصفحة
+    window.onload = loadMapScript;
+</script>
+
+</body>
+</html>
+           
